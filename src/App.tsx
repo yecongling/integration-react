@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import { StoreProvider } from "./context/storeContext";
 import { App as AntdApp, ConfigProvider, Spin } from "antd";
 import { useStore } from "./hooks/sotreContext";

@@ -10,7 +10,7 @@ import { antdUtils } from "@/utils/antd";
 // 默认错误路由
 const errorRoutes: RouteObject[] = [
   {
-    path: "/:pathMatch(.*)*",
+    path: "/*",
     component: lazyLoad("@/pages/404").type,
   },
   {
