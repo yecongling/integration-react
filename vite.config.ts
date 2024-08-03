@@ -1,0 +1,35 @@
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  // 配置路径别名解析
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src')
+    },
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+  },
+  // css预处理器
+  css: {
+    preprocessorOptions: {
+      scss: {
+        // 引入全局变量
+        additionalData: `@import "@/assets/css/variables.scss";`,
+      }
+    }
+  },
+  // 服务器配置以及代理
+  server: {
+    port: 3000,
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080/integration",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
+})
