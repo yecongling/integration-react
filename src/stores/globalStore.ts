@@ -5,7 +5,7 @@ import { makeAutoObservable } from "mobx";
  */
 class GlobalStore {
     // 主题
-    theme: string = "light";
+    theme: 'dark' | 'light' = "light";
     // 侧边栏收缩
     collapse: boolean = false;
     // 默认颜色
@@ -16,7 +16,7 @@ class GlobalStore {
         makeAutoObservable(this);
     }
 
-    setTheme(theme: string) {
+    setTheme(theme: 'dark' | 'light') {
         this.theme = theme;
     }
 

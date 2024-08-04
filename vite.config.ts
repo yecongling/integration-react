@@ -17,7 +17,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         // 引入全局变量
-        additionalData: `@import "@/assets/css/variables.scss";`,
+        additionalData: `@import "@/assets/styles/variables.scss";`,
       }
     }
   },

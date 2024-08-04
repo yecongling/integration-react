@@ -1,12 +1,28 @@
-import React from "react";
+import React, { Suspense } from "react";
+import { Layout, Spin } from "antd";
+import { Outlet } from "react-router-dom";
+// import useGlobalStore from "@/store/modules/global.ts";
+/* 内容区域 */
+const Index: React.FC = () => {
+    // const {theme} = useGlobalStore();
 
-/**
- * 内容区域
- * @returns 组件内容
- */
-const Content: React.FC = () => {
     return (
-        <>主页面</>
+        <Layout.Content className="dis-fl fd-c"
+            style={{
+                overflowY: 'auto',
+                // backgroundColor: theme === 'dark' ? '#f2f5f7' : '#fff',
+                overflowX: 'hidden',
+                padding: '8px'
+            }}>
+            <Suspense fallback={
+                <div className="dis-fl jc-ct ai-ct" style={{ height: '100vh' }}>
+                    <Spin size="large" />
+                </div>
+            }>
+                <Outlet />
+            </Suspense>
+        </Layout.Content>
     )
 }
-export default Content;
+
+export default Index;

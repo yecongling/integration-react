@@ -25,7 +25,7 @@ const errorRoutes: RouteObject[] = [
 ];
 
 // 动态路由
-const routes: RouteObject[] = [
+export const routes: RouteObject[] = [
   {
     path: "/",
     component: React.lazy(() => import("@/layouts/MainLayout")) as unknown as React.ReactNode,
@@ -59,7 +59,7 @@ const generateRouter = (routers: RouteObject[]) => {
     }
     return item;
   });
-};
+}
 
 // 生成路由
 export const Router = () => {

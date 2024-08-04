@@ -57,6 +57,7 @@ export interface RouteMeta {
     hidePathForChildren?: boolean;
     // 是否需要访问权限
     requiresAuth?: boolean;
+    menuType?: number;
   }
   
   /**
@@ -64,7 +65,7 @@ export interface RouteMeta {
    */
   export interface RouteItem {
     // 路径
-    path?: string;
+    path: string;
     // 组件
     component: string;
     // 明细
