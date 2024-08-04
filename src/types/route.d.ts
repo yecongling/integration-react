@@ -80,7 +80,7 @@ export interface RouteMeta {
     // 下级菜单
     children?: RouteItem[];
     // 子路由
-    childrenRoute?: any[];
+    childrenRoute?: RouteItem[];
     // route类型
     route?: string;
   }

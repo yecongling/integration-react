@@ -6,20 +6,21 @@ import { App, Skeleton } from "antd";
 import { useStore } from "@/hooks/sotreContext";
 import { handleRouter } from "@/utils/utils";
 import { antdUtils } from "@/utils/antd";
+import React from "react";
 
 // 默认错误路由
 const errorRoutes: RouteObject[] = [
   {
-    path: "/*",
-    component: lazyLoad("@/pages/404").type,
+    path: "*",
+    component: () => <Navigate replace to="/404" />,
   },
   {
     path: "/500",
-    component: lazyLoad("@/pages/500").type,
+    component: lazyLoad("500.tsx").type,
   },
   {
     path: "/404",
-    component: lazyLoad("@/pages/404").type,
+    component: lazyLoad("404.tsx").type,
   },
 ];
 
@@ -27,12 +28,12 @@ const errorRoutes: RouteObject[] = [
 const routes: RouteObject[] = [
   {
     path: "/",
-    component: lazyLoad("@/layouts/MainLayout").type,
+    component: React.lazy(() => import("@/layouts/MainLayout")) as unknown as React.ReactNode,
     children: [],
   },
   {
     path: "/login",
-    component: lazyLoad("@/pages/Login").type,
+    component: lazyLoad("Login").type,
   },
 ];
 
@@ -70,7 +71,7 @@ export const Router = () => {
     antdUtils.setModalInstance(modal);
   }, [notification, message, modal]);
 
-  const [route, setRoute] = useState<RouteObject[]>([...routes]);
+  const [route, setRoute] = useState([...routes]);
 
   // 从Store中获取Menu
   const { globalStore } = useStore();

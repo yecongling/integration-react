@@ -11,7 +11,7 @@ export const lazyLoad = (moduleName: string) => {
   } else {
     URL = `../pages/${moduleName}/index.tsx`;
   }
-  const Module = React.lazy((viteModule[`${URL}`] as never)??(() => import('@/pages/404')));
+  const Module = React.lazy((viteModule[`${URL}`] as any)??(() => import('@/pages/404')));
   return (
       <Module/>
   );

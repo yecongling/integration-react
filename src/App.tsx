@@ -6,7 +6,7 @@ import zhCN from "antd/locale/zh_CN";
 
 import "dayjs/locale/zh-cn";
 import { Router } from "./router/router";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 /**
  * 根组件
@@ -19,13 +19,13 @@ const App: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const location = useLocation();
+
   const navigate = useNavigate();
 
   useEffect(() => {
     // 去后台查询菜单，也需要判定当前是否登录，未登录的话就跳转登录页面
     const isLogin = sessionStorage.getItem('isLogin');
-    if (isLogin === 'false' || !isLogin || location.pathname === '/login') {
+    if (isLogin === 'false' || !isLogin) {
       navigate('/login');
     } else {
       setLoading(true);
