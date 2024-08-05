@@ -12,6 +12,8 @@
   "dependencies": {
     "antd": "^5.19.4",
     "axios": "^1.7.3",
+    "crypto-js": "^4.2.0",
+    "jsencrypt": "^3.3.2",
     "lodash-es": "^4.17.21",
     "mobx": "^6.13.1",
     "mobx-react-lite": "^4.0.7",
@@ -24,6 +26,7 @@
     "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^22.1.0",
     "@types/react": "^18.3.3",

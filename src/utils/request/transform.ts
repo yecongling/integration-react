@@ -14,6 +14,7 @@ import { joinTimestamp } from "./helper";
 import { RequestEnum, ResultEnum } from "@/enums/httpEnum";
 import { setObjToUrlParams } from "../utils";
 import { isString } from "../is";
+import { encrypt } from "../encrypt";
 
 export interface CreateAxiosOptions extends AxiosRequestConfig {
   authenticationScheme?: string;
@@ -211,6 +212,13 @@ export const transform: AxiosTransform = {
     if (token && options?.requestOptions?.withToken !== false) {
       config.headers["token"] = token;
     }
+    // 进行数据加密
+    if (config.data) {
+      const result = encrypt(config.data);
+      config.data = result.data;
+      // 将秘钥放到请求头里面
+      config.headers["encryptKey"] = result.key;
+    }
     return config;
   },
 
@@ -243,4 +251,4 @@ export const transform: AxiosTransform = {
 
     return Promise.reject(error);
   },
-}
+};
