@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   const inputRef = useRef(null);
   const navigate = useNavigate();
   // 加载状态
-  // const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   // 验证码
   const [code, setCode] = useState(
     Math.floor(Math.random() * 10000).toString()
@@ -34,6 +34,7 @@ const Login: React.FC = () => {
    * @param values 提交表单的数据
    */
   const submit = async (values: any) => {
+    setLoading(true);
     // 这里考虑返回的内容不仅包括token，还包括用户登录的角色（需要存储在本地，用于刷新页面时重新根据角色获取菜单）、配置的首页地址（供登录后进行跳转）
     const { token, roleId, homePath = "/home" } = await login(values);
     localStorage.setItem("token", token);
@@ -41,6 +42,7 @@ const Login: React.FC = () => {
     // 登录成功根据角色获取菜单
     const menu = await getMenuListByRoleId({ roleId });
     globalStore.setMenus(menu);
+    setLoading(false);
     // 跳转到首页
     navigate(homePath);
     navigate("/home");
@@ -176,7 +178,7 @@ const Login: React.FC = () => {
                 </Form.Item>
                 <Form.Item>
                   <Button
-                    loading={false}
+                    loading={loading}
                     size="large"
                     style={{ width: "100%" }}
                     type="primary"
