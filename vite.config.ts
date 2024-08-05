@@ -1,16 +1,24 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import { viteMockServe } from "vite-plugin-mock";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    viteMockServe({
+      mockPath: "./mock/",
+      logger: true,
+      enable: true
+    }),
+  ],
   // 配置路径别名解析
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
+      "@": path.resolve(__dirname, "./src"),
     },
-    extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
+    extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
   },
   // css预处理器
   css: {
@@ -18,8 +26,8 @@ export default defineConfig({
       scss: {
         // 引入全局变量
         additionalData: `@import "@/assets/styles/variables.scss";`,
-      }
-    }
+      },
+    },
   },
   // 服务器配置以及代理
   server: {
@@ -32,4 +40,4 @@ export default defineConfig({
       },
     },
   },
-})
+});
