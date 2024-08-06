@@ -10,18 +10,18 @@ import Console from "@/components/Console";
  * @returns 组件内容
  */
 const MainLayout: React.FC = () => {
-    return (
-        <>
-            {/* SQL监控台 */}
-            <Console/>
-            <Layout style={{ height: '100%' }}>
-                <LeftMenu />
-                <Layout>
-                    <Header />
-                    <Content />
-                </Layout>
-            </Layout>
-        </>
-    )
-}
+  return (
+    <>
+      {/* SQL监控台 */}
+      <Console />
+      <Layout style={{ height: "100%" }}>
+        <LeftMenu />
+        <Layout>
+          <Header />
+          <Content />
+        </Layout>
+      </Layout>
+    </>
+  );
+};
 export default MainLayout;

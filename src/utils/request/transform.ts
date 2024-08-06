@@ -124,8 +124,6 @@ export const transform: AxiosTransform = {
         }
     }
     if (options.errorMessageMode === "modal") {
-      antdUtils.modal?.error({ title: "错误提示", content: timeoutMsg });
-    } else if (options.errorMessageMode === "message") {
       if (code === 403) {
         antdUtils.modal?.confirm({
           title: "登录失败",
@@ -133,12 +131,16 @@ export const transform: AxiosTransform = {
           onOk() {
             // 登录失效后需要将本地token清除
             localStorage.removeItem("token");
+            localStorage.removeItem("isLogin");
+            localStorage.removeItem("roleId");
             window.location.href = "/login";
           },
         });
       } else {
-        antdUtils.message?.error(timeoutMsg);
+        antdUtils.modal?.error({ title: "错误提示", content: timeoutMsg });
       }
+    } else if (options.errorMessageMode === "message") {
+      antdUtils.message?.error(timeoutMsg);
     }
     throw new Error(timeoutMsg || "接口请求失败");
   },
@@ -222,7 +224,7 @@ export const transform: AxiosTransform = {
       ) {
         config.data = JSON.stringify(config.data);
         // 并且修改axios内部的transformRequest(不然如果传的json，加密后axios会默认转json字符串，后台接收到的会多双引号)
-        config.transformRequest = data => data;
+        config.transformRequest = (data) => data;
       }
       const result = encrypt(config.data);
       config.data = result.data;
