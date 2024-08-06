@@ -38,9 +38,9 @@ const Login: React.FC = () => {
     // 这里考虑返回的内容不仅包括token，还包括用户登录的角色（需要存储在本地，用于刷新页面时重新根据角色获取菜单）、配置的首页地址（供登录后进行跳转）
     try {
       const { token, roleId, homePath = "/home" } = await login(values);
-      localStorage.setItem("token", token);
-      localStorage.setItem("isLogin", "true");
-      localStorage.setItem("roleId", roleId);
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("isLogin", "true");
+      sessionStorage.setItem("roleId", roleId);
       // 登录成功根据角色获取菜单
       const menu = await getMenuListByRoleId({ roleId });
       globalStore.setMenus(menu);

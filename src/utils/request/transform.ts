@@ -130,9 +130,9 @@ export const transform: AxiosTransform = {
           content: "当前会话已失效，请重新登录！",
           onOk() {
             // 登录失效后需要将本地token清除
-            localStorage.removeItem("token");
-            localStorage.removeItem("isLogin");
-            localStorage.removeItem("roleId");
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem("isLogin");
+            sessionStorage.removeItem("roleId");
             window.location.href = "/login";
           },
         });
@@ -210,7 +210,7 @@ export const transform: AxiosTransform = {
    */
   requestInterceptors: (config, options) => {
     // 请求之前处理token
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (token && options?.requestOptions?.withToken !== false) {
       config.headers["token"] = token;
     }

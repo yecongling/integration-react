@@ -6,7 +6,7 @@ import zhCN from "antd/locale/zh_CN";
 
 import "dayjs/locale/zh-cn";
 import { Router } from "./router/router";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getMenuListByRoleId } from "./services/system/menu/menuApi";
 
 /**
@@ -21,16 +21,17 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const getMenuData = async () => {
-    const roleId = localStorage.getItem("roleId");
+    const roleId = sessionStorage.getItem("roleId");
     return await getMenuListByRoleId({ roleId });
   };
 
   useEffect(() => {
     // 去后台查询菜单，也需要判定当前是否登录，未登录的话就跳转登录页面
-    const isLogin = localStorage.getItem("isLogin");
-    if (isLogin === "false" || !isLogin) {
+    const isLogin = sessionStorage.getItem("isLogin");
+    if (isLogin === "false" || !isLogin || location.pathname === '/login') {
       navigate("/login");
     } else {
       setLoading(true);
