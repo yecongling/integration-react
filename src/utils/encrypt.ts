@@ -6,7 +6,16 @@ import JSEncrypt from "jsencrypt";
 
 // RSA的公钥
 const publicKey =
-  "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlOJu6TyygqxfWT7eLtGDwajtNFOb9I5XRb6khyfD1Yt3YiCgQWMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76xFxdU6jE0NQ+Z+zEdhUTooNRaY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4gwQco1KRMDSmXSMkDwIDAQAB";
+  `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9rT8QRdW7oHKMit2ADrU
+jAK9VUeGCR37qSPBLkicR6VlOCVzt+pL9fjiLPrMbXZL8ttkzYao3HvYt0+yhM+y
+5+2vHIJsVpekC1JQHl2x2pUUU09hvcnEquXDeja0NBXDqVEvtEp70H19xp3G4DRi
+5N6EJceez4JHmU9r18/tguCGWQPqJG8bSanDyZlOPuYHvHbU+pqglgWPc1k40uyR
+MVo4XTSO+RIwx/2Z4+DczCNPkCCqF/WLFMw5EqrUlki5kGPt61++T0EBIKKtoV9i
+pQIJJ0UjPP3jQMgaw85/XMvEspjNmyKLCj7Kob3mC8XB78gtUTkQIqT1YnmqgOs3
+LwIDAQAB
+-----END PUBLIC KEY-----
+`
 
 /**
  *
@@ -17,7 +26,10 @@ export const encrypt = (data: string) => {
   // 生成AES秘钥
   const aesKey = CryptoJS.lib.WordArray.random(16).toString(CryptoJS.enc.Hex);
   // 加密数据
-  const encryptedData = CryptoJS.AES.encrypt(data, aesKey).toString();
+  const encryptedData = CryptoJS.AES.encrypt(data, CryptoJS.enc.Utf8.parse(aesKey), {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  }).toString();
   // 使用RSA对AES的秘钥进行加密
   const encrypt = new JSEncrypt();
   encrypt.setPublicKey(publicKey);
