@@ -35,7 +35,7 @@ export default defineConfig(({ command }) => {
       port: 3000,
       proxy: {
         "/api": {
-          target: "http://localhost:8080/integration",
+          target: "http://localhost:8998/integration",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ""),
         },
