@@ -36,16 +36,20 @@ const Login: React.FC = () => {
   const submit = async (values: any) => {
     setLoading(true);
     // 这里考虑返回的内容不仅包括token，还包括用户登录的角色（需要存储在本地，用于刷新页面时重新根据角色获取菜单）、配置的首页地址（供登录后进行跳转）
-    const { token, roleId, homePath = "/home" } = await login(values);
-    localStorage.setItem("token", token);
-    localStorage.setItem("isLogin", "true");
-    // 登录成功根据角色获取菜单
-    const menu = await getMenuListByRoleId({ roleId });
-    globalStore.setMenus(menu);
-    setLoading(false);
-    // 跳转到首页
-    navigate(homePath);
-    navigate("/home");
+    try {
+      const { token, roleId, homePath = "/home" } = await login(values);
+      localStorage.setItem("token", token);
+      localStorage.setItem("isLogin", "true");
+      // 登录成功根据角色获取菜单
+      const menu = await getMenuListByRoleId({ roleId });
+      globalStore.setMenus(menu);
+      setLoading(false);
+      // 跳转到首页
+      navigate(homePath);
+      navigate("/home");
+    } finally {
+      setLoading(false);
+    }
   };
 
   /**
@@ -112,7 +116,7 @@ const Login: React.FC = () => {
                 labelCol={{ span: 5 }}
                 initialValues={{
                   username: "admin",
-                  password: "123qwe,.",
+                  password: "12345678",
                   captcha: code,
                   remember: true,
                 }}
@@ -141,7 +145,7 @@ const Login: React.FC = () => {
                     size="large"
                     allowClear
                     autoComplete="new-password"
-                    placeholder="密码：123qwe,."
+                    placeholder="密码：12345678"
                     prefix={<LockOutlined />}
                   />
                 </Form.Item>
