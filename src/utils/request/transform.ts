@@ -160,7 +160,7 @@ export const transform: AxiosTransform = {
     }
     const params = config.params || {};
     const data = config.data || false;
-    if (config.method?.toLowerCase() === RequestEnum.GET) {
+    if (config.method?.toUpperCase() === RequestEnum.GET) {
       if (!isString(params)) {
         // 给get请求加上事件戳参数，避免从缓存中拿数据
         config.params = Object.assign(

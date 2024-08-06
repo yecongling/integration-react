@@ -40,13 +40,13 @@ const Login: React.FC = () => {
       const { token, roleId, homePath = "/home" } = await login(values);
       localStorage.setItem("token", token);
       localStorage.setItem("isLogin", "true");
+      localStorage.setItem("roleId", roleId);
       // 登录成功根据角色获取菜单
       const menu = await getMenuListByRoleId({ roleId });
       globalStore.setMenus(menu);
       setLoading(false);
       // 跳转到首页
-      navigate(homePath);
-      navigate("/home");
+      navigate(homePath || '/home');
     } finally {
       setLoading(false);
     }

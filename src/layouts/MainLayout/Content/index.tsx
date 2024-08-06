@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { Layout, Spin } from "antd";
-import { Outlet } from "react-router-dom";
+import RouterBeforeEach from "@/router/RouterBeforeEach";
 // import useGlobalStore from "@/store/modules/global.ts";
 /* 内容区域 */
 const Index: React.FC = () => {
@@ -19,7 +19,7 @@ const Index: React.FC = () => {
                     <Spin size="large" />
                 </div>
             }>
-                <Outlet />
+                <RouterBeforeEach />
             </Suspense>
         </Layout.Content>
     )

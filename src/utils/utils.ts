@@ -1,6 +1,6 @@
 import { lazyLoad } from "@/router/lazyLoad";
 import { RouteItem, RouteObject } from "@/types/route";
-import * as Icons from "react-icons/ai";
+import * as Icons from "@ant-design/icons";
 import { isObject } from "./is";
 import React from "react";
 
@@ -76,6 +76,7 @@ export const searchRoute = (
 ): RouteItem => {
   let result: RouteItem = {
     component: "",
+    path: ""
   };
   for (const item of routes) {
     if (item.path === path) return item;
@@ -90,7 +91,7 @@ export const searchRoute = (
 // 动态渲染 Icon 图标(目前仅考虑使用react-icons/ai里面的，后面这里进行扩展，动态使用react)
 const customIcons: { [key: string]: any } = Icons;
 export const addIcon = (name: string | undefined) => {
-  if (!name) {
+  if (!name || !customIcons[name]) {
     return null;
   }
   return React.createElement(customIcons[name]);

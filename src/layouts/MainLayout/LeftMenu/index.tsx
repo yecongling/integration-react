@@ -17,7 +17,6 @@ const LeftMenu: React.FC = observer(() => {
     // 获取状态库中登录后请求的菜单
     const { globalStore } = useStore();
     const { menus, collapse, theme } = globalStore;
-
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [menuList, setMenuList] = useState<MenuItem[]>([]);
