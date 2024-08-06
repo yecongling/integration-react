@@ -7,6 +7,7 @@ import { useStore } from "@/hooks/sotreContext";
 import { handleRouter } from "@/utils/utils";
 import { antdUtils } from "@/utils/antd";
 import React from "react";
+import { observer } from "mobx-react-lite";
 
 // 默认错误路由
 const errorRoutes: RouteObject[] = [
@@ -62,7 +63,7 @@ const generateRouter = (routers: RouteObject[]) => {
 }
 
 // 生成路由
-export const Router = () => {
+export const Router = observer(() => {
   // 方便非react组件内部使用
   const { notification, message, modal } = App.useApp();
   useEffect(() => {
@@ -82,4 +83,4 @@ export const Router = () => {
     setRoute([...route]);
   }, [menus]);
   return useRoutes(generateRouter(route));
-}
+})
