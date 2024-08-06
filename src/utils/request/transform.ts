@@ -126,7 +126,7 @@ export const transform: AxiosTransform = {
     if (options.errorMessageMode === "modal") {
       if (code === 403) {
         antdUtils.modal?.confirm({
-          title: "登录失败",
+          title: "会话过期",
           content: "当前会话已失效，请重新登录！",
           onOk() {
             // 登录失效后需要将本地token清除
