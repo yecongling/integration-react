@@ -32,7 +32,7 @@ function createAxios(opts?: Partial<CreateAxiosOptions>) {
           // 成功消息提示类型
           successMessageMode: "success",
           // 接口地址（默认）
-          apiUrl: "/integration",
+          apiUrl: "/api",
           // 接口拼接地址前缀
           urlPrefix: "",
           //  是否加入时间戳

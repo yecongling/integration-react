@@ -214,6 +214,16 @@ export const transform: AxiosTransform = {
     }
     // 进行数据加密
     if (config.data) {
+      // 判定json数据需要转为json字符串才能加密
+      if (
+        typeof config.data === "object" &&
+        (config.headers["Content-Type"] === "application/json" ||
+          config.headers["Content-Type"] === "application/json;charset=UTF-8")
+      ) {
+        config.data = JSON.stringify(config.data);
+        // 并且修改axios内部的transformRequest(不然如果传的json，加密后axios会默认转json字符串，后台接收到的会多双引号)
+        config.transformRequest = data => data;
+      }
       const result = encrypt(config.data);
       config.data = result.data;
       // 将秘钥放到请求头里面

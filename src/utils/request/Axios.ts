@@ -100,7 +100,7 @@ export class RAxios {
 
     return new Promise((resolve, reject) => {
       this.axiosInstance
-        .request<any, AxiosResponse<Result<any>>>(config)
+        .request<any, AxiosResponse<Result<any>>>(conf)
         .then((res: AxiosResponse<Result<any>>) => {
           if (transformResponseHook && isFunction(transformResponseHook)) {
             try {
