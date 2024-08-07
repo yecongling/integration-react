@@ -209,7 +209,7 @@ const permission: Array<MockMethod> = [
                   id: "112323",
                   name: "sys-resources",
                   path: "/resources/transfer",
-                  component: "resources/Transfer",
+                  component: "resources/DataTransfer",
                   route: "1",
                   meta: {
                     keepAlive: false,
