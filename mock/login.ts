@@ -2,7 +2,7 @@ import { MockMethod } from "vite-plugin-mock";
 
 const project: Array<MockMethod> = [
   {
-    url: "/login",
+    url: "/api/login",
     method: "post",
     response: () => {
       return {
