@@ -146,24 +146,11 @@ const permission: Array<MockMethod> = [
                   route: "1",
                   meta: {
                     keepAlive: false,
-                    icon: "HomeOutlined",
+                    icon: "ApiOutlined",
                     title: "端点维护",
                     internal: false,
                   },
-                },
-                {
-                  id: "12236",
-                  name: "sys-project",
-                  path: "/project/endpointType",
-                  component: "project/EndpointType",
-                  route: "1",
-                  meta: {
-                    keepAlive: false,
-                    icon: "ProductOutlined",
-                    title: "端点类型配置",
-                    internal: false,
-                  },
-                },
+                }
               ],
             },
             {
