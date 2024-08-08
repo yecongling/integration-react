@@ -14,11 +14,11 @@ const Endpoint: React.FC = () => {
       key: "0-0",
       children: [
         {
-          title: "SOAP",
+          title: "SOAP（CXF）",
           key: "0-0-0",
         },
         {
-          title: "HTTP",
+          title: "HTTP（Netty）",
           key: "0-0-1",
         },
         {
@@ -113,7 +113,7 @@ const Endpoint: React.FC = () => {
               paddingTop: "16px",
             }}
           >
-            <Tree treeData={treeData} defaultExpandAll showIcon showLine />
+            <Tree treeData={treeData} defaultExpandAll showIcon showLine blockNode/>
           </section>
         </Card>
       </Col>
