@@ -1,15 +1,102 @@
 import React from "react";
 import "./endpoint.scss";
-import { Card, Col, Row, Input } from "antd";
+import { Card, Col, Row, Input, TreeDataNode, Tree } from "antd";
 const { Search } = Input;
 /**
  * 端点维护
  * @returns 端点
  */
 const Endpoint: React.FC = () => {
+  // 定义树数据（后续改造从后台获取）
+  const treeData: TreeDataNode[] = [
+    {
+      title: "web服务",
+      key: "0-0",
+      children: [
+        {
+          title: "SOAP",
+          key: "0-0-0",
+        },
+        {
+          title: "HTTP",
+          key: "0-0-1",
+        },
+        {
+          title: "RPC",
+          key: "0-0-2",
+        },
+      ],
+    },
+    {
+      title: "MQ",
+      key: "1-0",
+      children: [
+        {
+          title: "kafka",
+          key: "1-0-0",
+        },
+        {
+          title: "RabbitMQ",
+          key: "1-0-1",
+        },
+      ],
+    },
+    {
+      title: "文件",
+      key: "2-0",
+      children: [
+        {
+          title: "FTP",
+          key: "2-0-0",
+        },
+        {
+          title: "FILE",
+          key: "2-0-1",
+        },
+        {
+          title: "SFTP",
+          key: "2-0-2",
+        },
+        {
+          title: "邮件",
+          key: "2-0-3",
+        },
+      ],
+    },
+    {
+      title: "数据库",
+      key: "3-0",
+      children: [
+        {
+          title: "MySQL",
+          key: "3-0-0",
+        },
+        {
+          title: "Oracle",
+          key: "3-0-1",
+        },
+        {
+          title: "SQL Server",
+          key: "3-0-2",
+        },
+        {
+          title: "redis",
+          key: "3-0-3",
+        },
+        {
+          title: "mongoDB",
+          key: "3-0-4",
+        },
+        {
+          title: "其他",
+          key: "3-0-5",
+        },
+      ],
+    },
+  ];
   return (
     <Row gutter={8} style={{ height: "100%" }}>
-      <Col span={6} xl={10} xxl={6}>
+      <Col span={5} xl={10} xxl={5}>
         <Card style={{ height: "100%" }} styles={{ body: { height: "100%" } }}>
           <section style={{ marginBottom: "8px" }}>
             <Search
@@ -23,13 +110,14 @@ const Endpoint: React.FC = () => {
               height: "calc(100% - 48px)",
               display: "flex",
               flexDirection: "column",
+              paddingTop: "16px",
             }}
           >
-            一棵树
+            <Tree treeData={treeData} defaultExpandAll showIcon showLine />
           </section>
         </Card>
       </Col>
-      <Col span={18} xl={14} xxl={18}>
+      <Col span={19} xl={14} xxl={19}>
         <Card style={{ height: "100%" }}>右边</Card>
       </Col>
     </Row>
