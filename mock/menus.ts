@@ -147,7 +147,7 @@ const permission: Array<MockMethod> = [
                   meta: {
                     keepAlive: false,
                     icon: "HomeOutlined",
-                    title: "端点管理",
+                    title: "端点维护",
                     internal: false,
                   },
                 },
@@ -160,7 +160,7 @@ const permission: Array<MockMethod> = [
                   meta: {
                     keepAlive: false,
                     icon: "ProductOutlined",
-                    title: "端点类型管理",
+                    title: "端点类型配置",
                     internal: false,
                   },
                 },
