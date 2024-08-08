@@ -289,7 +289,7 @@ const permission: Array<MockMethod> = [
                   id: "11239",
                   name: "sys-connection",
                   path: "/connection/jms",
-                  component: "connection/Jms",
+                  component: "connection/JMS",
                   route: "1",
                   meta: {
                     keepAlive: false,
@@ -529,7 +529,7 @@ const permission: Array<MockMethod> = [
                   id: "1128545579",
                   name: "sys-monitor",
                   path: "/monitor/sql",
-                  component: "monitor/Sql",
+                  component: "monitor/SQL",
                   route: "1",
                   meta: {
                     keepAlive: false,
