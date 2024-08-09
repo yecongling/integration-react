@@ -9,8 +9,24 @@ import {
   SyncOutlined,
 } from "@ant-design/icons";
 import "./endpoint.scss";
-import { Card, Col, Row, Input, TreeDataNode, Tree, Form, Select, Button, Table, Tooltip, Space } from "antd";
-import { getEndpoints, getEndpointType } from "@/services/project/endpoint/endpointApi";
+import {
+  Card,
+  Col,
+  Row,
+  Input,
+  TreeDataNode,
+  Tree,
+  Form,
+  Select,
+  Button,
+  Table,
+  Tooltip,
+  Space,
+} from "antd";
+import {
+  getEndpoints,
+  getEndpointType,
+} from "@/services/project/endpoint/endpointApi";
 import { EndpointModel } from "@/services/project/endpoint/endpointModel";
 import { TableRowSelection } from "antd/es/table/interface";
 const { Search } = Input;
@@ -19,7 +35,6 @@ const { Search } = Input;
  * @returns 端点
  */
 const Endpoint: React.FC = () => {
-
   // 定义端点类型数据、端点数据
   const [endpointTypes, setEndpointTypes] = useState([]);
   const [endpoints, setEndpoints] = useState([]);
@@ -34,7 +49,7 @@ const Endpoint: React.FC = () => {
    */
   const queryEndpointType = async (search: string) => {
     return await getEndpointType(search);
-  }
+  };
 
   /**
    * 查询端点信息
@@ -43,15 +58,15 @@ const Endpoint: React.FC = () => {
    */
   const queryEndpoints = async (endpoint: EndpointModel) => {
     return await getEndpoints(endpoint);
-  }
+  };
 
   /**
    * 树节点选择事件，刷新右边的数据
    */
   const onTreeSelect = (selectedKeys: Key[], info: any) => {
-    console.log('选中的key是', selectedKeys);
-    console.log('选中的节点是', info.selectedNodes);
-  }
+    console.log("选中的key是", selectedKeys);
+    console.log("选中的节点是", info.selectedNodes);
+  };
 
   // 定义树数据（后续改造从后台获取）
   const treeData: TreeDataNode[] = [
@@ -147,7 +162,7 @@ const Endpoint: React.FC = () => {
       setSelectRow(selectedRows);
     },
   };
-  
+
   return (
     <Row gutter={8} style={{ height: "100%" }}>
       <Col span={5} xl={10} xxl={5}>
@@ -168,13 +183,25 @@ const Endpoint: React.FC = () => {
               paddingTop: "16px",
             }}
           >
-            <Tree treeData={treeData} defaultExpandAll showIcon showLine blockNode onSelect={onTreeSelect} />
+            <Tree
+              treeData={treeData}
+              defaultExpandAll
+              showIcon
+              showLine
+              blockNode
+              onSelect={onTreeSelect}
+            />
           </section>
         </Card>
       </Col>
-      <Col span={19} xl={14} xxl={19}>
-        <section style={{ marginBottom: '8px' }}>
-          <Card styles={{ body: { height: '100%' } }}>
+      <Col
+        span={19}
+        xl={14}
+        xxl={19}
+        style={{ display: "flex", flexDirection: "column", height: "100%" }}
+      >
+        <section style={{ marginBottom: "8px" }}>
+          <Card styles={{ body: { height: "100%" } }}>
             <Form
               form={searchForm}
               initialValues={{ projectType: "-1", mode: "-1" }}
@@ -186,24 +213,15 @@ const Endpoint: React.FC = () => {
                     name="name"
                     style={{ marginBottom: 0 }}
                   >
-                    <Input
-                      autoFocus
-                      allowClear
-                      autoComplete="false"
-                    />
+                    <Input autoFocus allowClear autoComplete="false" />
                   </Form.Item>
                 </Col>
                 <Col span={6}>
                   <Form.Item
-                    label="所属端"
-                    name="belong"
+                    label="模式"
+                    name="mode"
                     style={{ marginBottom: 0 }}
                   >
-                    <Input allowClear autoComplete="false" />
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item label="模式" name="mode" style={{ marginBottom: 0 }}>
                     <Select
                       options={[
                         { value: "-1", label: "请选择模式", disabled: true },
@@ -216,7 +234,7 @@ const Endpoint: React.FC = () => {
                   </Form.Item>
                 </Col>
 
-                <Col span={6} style={{ textAlign: 'end' }}>
+                <Col span={6} style={{ textAlign: "end" }}>
                   <Button type="primary" htmlType="submit">
                     <SearchOutlined />
                     查询
@@ -231,8 +249,17 @@ const Endpoint: React.FC = () => {
           </Card>
         </section>
         {/* 下面表格内容 */}
-        <section>
-          <Card>
+        <section style={{ flex: "1" }}>
+          <Card
+            style={{ height: "100%" }}
+            styles={{
+              body: {
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+              },
+            }}
+          >
             <section style={{ marginBottom: "16px" }}>
               <Row>
                 <Col span={22}>
@@ -247,7 +274,9 @@ const Endpoint: React.FC = () => {
                       }}
                       icon={
                         <DeleteOutlined
-                          style={{ color: selectRow.length === 0 ? "#ccc" : "red" }}
+                          style={{
+                            color: selectRow.length === 0 ? "#ccc" : "red",
+                          }}
                         />
                       }
                       disabled={selectRow.length === 0}
@@ -266,7 +295,9 @@ const Endpoint: React.FC = () => {
                       onClick={() => alert("导出")}
                       icon={
                         <ExportOutlined
-                          style={{ color: selectRow.length === 0 ? "#ccc" : "red" }}
+                          style={{
+                            color: selectRow.length === 0 ? "#ccc" : "red",
+                          }}
                         />
                       }
                       disabled={selectRow.length === 0}
@@ -280,13 +311,13 @@ const Endpoint: React.FC = () => {
                     <Button
                       type="primary"
                       icon={<RestOutlined />}
-                      onClick={() => { }}
+                      onClick={() => {}}
                     />
                   </Tooltip>
                 </Col>
               </Row>
             </section>
-            <section>
+            <section style={{ flex: 1 }}>
               <Table
                 rowSelection={{ ...rowSelection, checkStrictly: false }}
                 scroll={{ x: "100", y: "calc(100vh - 270px)" }}
@@ -300,8 +331,8 @@ const Endpoint: React.FC = () => {
                   total: 1,
                   showTotal: (total) => `共 ${total} 条`,
                 }}
-              // columns={columns}
-              // dataSource={endpointSource}
+                // columns={columns}
+                // dataSource={endpointSource}
               />
             </section>
           </Card>
