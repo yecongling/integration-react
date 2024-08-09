@@ -1,4 +1,4 @@
-import React, { Key, useState } from "react";
+import React, { Key, useEffect, useState } from "react";
 import {
   DeleteOutlined,
   ExportOutlined,
@@ -29,6 +29,7 @@ import {
 } from "@/services/project/endpoint/endpointApi";
 import { EndpointModel } from "@/services/project/endpoint/endpointModel";
 import { TableRowSelection } from "antd/es/table/interface";
+import { addKeyToTreeData } from "@/utils/utils";
 const { Search } = Input;
 /**
  * 端点维护
@@ -36,18 +37,51 @@ const { Search } = Input;
  */
 const Endpoint: React.FC = () => {
   // 定义端点类型数据、端点数据
-  const [endpointTypes, setEndpointTypes] = useState([]);
-  const [endpoints, setEndpoints] = useState([]);
+  const [endpointTypes, setEndpointTypes] = useState<TreeDataNode[]>([]);
+  const [endpoints, setEndpoints] = useState<EndpointModel[]>([]);
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   // 表格中选中的行
   const [selectRow, setSelectRow] = useState<EndpointModel[]>([]);
+  // 设置树是否加载完成
+  const [treeLoading, setTreeLoading] = useState<boolean>(false);
   // 查询表单数据
   const [searchForm] = Form.useForm();
+
+  useEffect(() => {
+    getEndpointType().then((res) => {
+      // 数据转换
+      const transform = addKeyToTreeData(res, "id");
+      // 设置树数据
+      setEndpointTypes(transform);
+    });
+  }, []);
+
+  // 树节点加载完毕后默认选中第一个节点
+  useEffect(() => {
+    if (endpointTypes.length > 0 && !treeLoading) {
+      // 默认选中第一个节点
+      if (endpointTypes[0].children && endpointTypes[0].children.length > 0) {
+        setSelectedKeys([endpointTypes[0].children[0].key as string]);
+      } else {
+        setSelectedKeys([endpointTypes[0].key as string]);
+      }
+      // 设置树加载完成
+      setTreeLoading(true);
+    }
+  }, [endpointTypes, treeLoading]);
+
+  // 选中的节点发生变化时重新查询右边的表格数据
+  useEffect(() => {
+    if (treeLoading) {
+      console.log("selectedKeys", selectedKeys);
+    }
+  }, [selectedKeys, treeLoading]);
 
   /**
    * 查询端点类型
    * @param search 查询条件
    */
-  const queryEndpointType = async (search: string) => {
+  const queryEndpointType = async (search?: string) => {
     return await getEndpointType(search);
   };
 
@@ -63,98 +97,9 @@ const Endpoint: React.FC = () => {
   /**
    * 树节点选择事件，刷新右边的数据
    */
-  const onTreeSelect = (selectedKeys: Key[], info: any) => {
-    console.log("选中的key是", selectedKeys);
-    console.log("选中的节点是", info.selectedNodes);
+  const onTreeSelect = (selectedKeys: any[]) => {
+    setSelectedKeys(selectedKeys);
   };
-
-  // 定义树数据（后续改造从后台获取）
-  const treeData: TreeDataNode[] = [
-    {
-      title: "web服务",
-      key: "0-0",
-      children: [
-        {
-          title: "SOAP(CXF)",
-          key: "0-0-0",
-        },
-        {
-          title: "HTTP(Netty)",
-          key: "0-0-1",
-        },
-        {
-          title: "RPC",
-          key: "0-0-2",
-        },
-      ],
-    },
-    {
-      title: "MQ",
-      key: "1-0",
-      children: [
-        {
-          title: "kafka",
-          key: "1-0-0",
-        },
-        {
-          title: "RabbitMQ",
-          key: "1-0-1",
-        },
-      ],
-    },
-    {
-      title: "文件",
-      key: "2-0",
-      children: [
-        {
-          title: "FTP",
-          key: "2-0-0",
-        },
-        {
-          title: "FILE",
-          key: "2-0-1",
-        },
-        {
-          title: "SFTP",
-          key: "2-0-2",
-        },
-        {
-          title: "邮件",
-          key: "2-0-3",
-        },
-      ],
-    },
-    {
-      title: "数据库",
-      key: "3-0",
-      children: [
-        {
-          title: "MySQL",
-          key: "3-0-0",
-        },
-        {
-          title: "Oracle",
-          key: "3-0-1",
-        },
-        {
-          title: "SQL Server",
-          key: "3-0-2",
-        },
-        {
-          title: "redis",
-          key: "3-0-3",
-        },
-        {
-          title: "mongoDB",
-          key: "3-0-4",
-        },
-        {
-          title: "其他",
-          key: "3-0-5",
-        },
-      ],
-    },
-  ];
 
   // 定义可多选
   const rowSelection: TableRowSelection<EndpointModel> = {
@@ -183,14 +128,17 @@ const Endpoint: React.FC = () => {
               paddingTop: "16px",
             }}
           >
-            <Tree
-              treeData={treeData}
-              defaultExpandAll
-              showIcon
-              showLine
-              blockNode
-              onSelect={onTreeSelect}
-            />
+            {endpointTypes.length > 0 && (
+              <Tree
+                treeData={endpointTypes}
+                selectedKeys={selectedKeys}
+                defaultExpandAll
+                showIcon
+                showLine
+                blockNode
+                onSelect={onTreeSelect}
+              />
+            )}
           </section>
         </Card>
       </Col>

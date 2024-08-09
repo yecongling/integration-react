@@ -76,7 +76,7 @@ export const searchRoute = (
 ): RouteItem => {
   let result: RouteItem = {
     component: "",
-    path: ""
+    path: "",
   };
   for (const item of routes) {
     if (item.path === path) return item;
@@ -86,7 +86,7 @@ export const searchRoute = (
     }
   }
   return result;
-}
+};
 
 // 动态渲染 Icon 图标(目前仅考虑使用react-icons/ai里面的，后面这里进行扩展，动态使用react)
 const customIcons: { [key: string]: any } = Icons;
@@ -95,7 +95,7 @@ export const addIcon = (name: string | undefined) => {
     return null;
   }
   return React.createElement(customIcons[name]);
-}
+};
 
 /**
  * @description 获取需要展开的 subMenu
@@ -111,4 +111,20 @@ export const getOpenKeys = (path: string) => {
     newArr.push(newStr);
   }
   return newArr;
-}
+};
+
+/**
+ * 将后台拿到的数据映射成包含key的数据，用于react相关组件
+ * @param data 数据
+ * @param key 数据中的唯一字段
+ * @returns 映射的数据
+ */
+export const addKeyToTreeData = (data: any[], key: string) => {
+  return data.map((item) => {
+    const newItem = { ...item, key: item[key] };
+    if (item.children) {
+      newItem.children = addKeyToTreeData(item.children, key);
+    }
+    return newItem;
+  });
+};

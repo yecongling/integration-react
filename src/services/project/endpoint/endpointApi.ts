@@ -1,11 +1,11 @@
 import { HttpRequest } from "@/utils/request";
-import { EndpointModel } from "./endpointModel";
+import { EndpointModel, EndpointType } from "./endpointModel";
 
 export enum EndpointApi {
     // 获取所有端点类型
-    getEndpointType = 'project/endpoint/getEndpointType',
+    getEndpointType = '/project/endpoint/getEndpointType',
     // 查询所有端点
-    getEndpoints = 'project/endpoint/getEndpoints'
+    getEndpoints = '/project/endpoint/getEndpoints'
 }
 
 /**
@@ -13,8 +13,8 @@ export enum EndpointApi {
  * 
  * @param type 查询条件
  */
-export const getEndpointType = (type: string) => {
-    return HttpRequest.get({url: EndpointApi.getEndpointType, params: type}, {successMessageMode: 'none'});
+export const getEndpointType = (type?: string) => {
+    return HttpRequest.get<EndpointType[]>({url: EndpointApi.getEndpointType, params: type}, {successMessageMode: 'none'});
 }
 
 /**
@@ -22,5 +22,5 @@ export const getEndpointType = (type: string) => {
  * @param endpoint 端点的查询条件
  */
 export const getEndpoints = (endpoint: EndpointModel) => {
-    return HttpRequest.get({url: EndpointApi.getEndpoints, params: endpoint}, {successMessageMode: 'none'});
+    return HttpRequest.get<EndpointModel[]>({url: EndpointApi.getEndpoints, params: endpoint}, {successMessageMode: 'none'});
 }
