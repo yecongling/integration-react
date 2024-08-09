@@ -73,7 +73,7 @@ const Endpoint: React.FC = () => {
   // 选中的节点发生变化时重新查询右边的表格数据
   useEffect(() => {
     if (treeLoading) {
-      console.log("selectedKeys", selectedKeys);
+      queryEndpoints();
     }
   }, [selectedKeys, treeLoading]);
 
@@ -90,8 +90,9 @@ const Endpoint: React.FC = () => {
    * @param endpoint 端点查询条件
    * @returns 所有的端点
    */
-  const queryEndpoints = async (endpoint: EndpointModel) => {
-    return await getEndpoints(endpoint);
+  const queryEndpoints = async (endpoint?: EndpointModel) => {
+    const endpoints = await getEndpoints(endpoint);
+    console.log('加载的端点数据', endpoints);
   };
 
   /**

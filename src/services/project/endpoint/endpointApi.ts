@@ -21,6 +21,6 @@ export const getEndpointType = (type?: string) => {
  * 查询所有的端点信息
  * @param endpoint 端点的查询条件
  */
-export const getEndpoints = (endpoint: EndpointModel) => {
+export const getEndpoints = (endpoint?: EndpointModel) => {
     return HttpRequest.get<EndpointModel[]>({url: EndpointApi.getEndpoints, params: endpoint}, {successMessageMode: 'none'});
 }

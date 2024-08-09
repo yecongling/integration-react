@@ -7,7 +7,7 @@ const project: Array<MockMethod> = [
     response: () => {
       return {
         code: 200,
-        msg: "",
+        message: "",
         data: [
           {
             title: "web服务",
@@ -97,6 +97,28 @@ const project: Array<MockMethod> = [
       };
     },
   },
+  {
+    url: "/api/project/endpoint/getEndpoints",
+    method: "get",
+    response: () => {
+      return {
+        code: 200,
+        message: "",
+        data: [
+          {
+            id: "0-0-0",
+            name: "SOAP(CXF)",
+            supportedModes: "REQUEST",
+          },
+          {
+            id: "0-0-1",
+            name: "HTTP(Netty)",
+            supportedModes:"REQUEST",
+          }
+        ]
+      }
+    }
+  }
 ];
 
 export default project;
